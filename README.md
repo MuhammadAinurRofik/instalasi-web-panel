@@ -9,6 +9,7 @@
 
 ## 📥 Panduan Instalasi di Server
 Ikuti langkah-langkah di bawah ini untuk menyiapkan lingkungan server.
+
 📢 jalan kan semua perintah sebagai root.
 
 ### 1. Update Sistem
