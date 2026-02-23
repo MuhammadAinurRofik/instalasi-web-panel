@@ -264,10 +264,37 @@ Sekarang coba akses melalui browser di http://IP_ADDRESS/phpmyadmin/.
 - Lebih Aman: Mengisolasi pengaturan phpMyAdmin dari folder web utama Anda (/var/www/html).
 - Mencegah Error 403: Karena kita mendefinisikan index index.php secara spesifik di dalam lokasi tersebut.
 
+### 4. install python
 
+```bash
 
+```
 
+### 5. install composer
 
+```bash
+
+```
+
+### 6. install unzip
+
+```bash
+sudo apt install unzip zip curl -y
+```
+
+### 7. Konfigurasi Sudoers
+Agar PHP (www-data) bisa membuat folder di /var/www dan merestart Nginx via script.
+jalankan perintah:
+
+```bash
+sudo visudo
+```
+
+Tambahkan di baris paling bawah:
+
+```bash
+www-data ALL=(ALL) NOPASSWD: /usr/bin/mkdir, /usr/bin/cp, /usr/bin/unzip, /usr/bin/rm, /usr/bin/chown, /usr/bin/chmod, /usr/bin/mv, /usr/bin/ln, /usr/bin/systemctl, /usr/bin/php, /usr/bin/tail -n [0-9]* /var/log/nginx/*.log, /usr/bin/rm -f, /usr/bin/rm -rf /var/log/nginx/*, /usr/bin/rm -f /var/log/nginx/*, /usr/bin/python3.10, /usr/bin/pip, /usr/bin/touch, /usr/bin/tail, /usr/bin/bash, /usr/bin/systemctl reload nginx, /usr/bin/systemctl daemon-reload, /usr/bin/systemctl enable flask_*, /usr/bin/systemctl restart flask_*, /var/www/*/venv/bin/pip cache purge
+```
 
 
 
