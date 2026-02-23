@@ -383,6 +383,19 @@ sudo chown -R www-data:www-data /var/www
 sudo chmod -R 775 /var/www
 ```
 
+### 13. Persiapan Folder & Clone Repository
+Masuk ke direktori /var/www dan mengambil kode dari GitHub menggunakan git clone.
+
+```bash
+# Masuk ke folder web
+cd /var/www
+
+# Clone repository (Ganti URL dengan link repo Anda)
+sudo git clone https://github.com/username/repo-web-panel.git web-panel
+
+# Berikan izin kepemilikan awal agar bisa diproses Laravel
+sudo chown -R www-data:www-data /var/www/web-panel
+```
 
 
 
