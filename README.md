@@ -26,10 +26,12 @@ Untuk versi yang paling stabil dan didukung penuh saat ini di lingkungan Ubuntu 
 Berikut adalah langkah-langkah instalasinya:
 1. Tambahkan Repository PHP (Ondřej Surý)
    Agar mendapatkan versi PHP yang paling update dan stabil di Ubuntu, gunakan repository PPA yang dikelola oleh pengembang PHP resmi untuk Debian/Ubuntu:
+   
    ```bash
       sudo add-apt-repository ppa:ondrej/php -y
       sudo apt update
     ```
+   
 3. Instal PHP 8.3-FPM dan Ekstensi Penting
 4. Pastikan Layanan PHP-FPM Berjalan
 5. Konfigurasi Nginx agar bisa membaca PHP
