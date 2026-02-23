@@ -259,15 +259,49 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
 
 Sekarang coba akses melalui browser di http://IP_ADDRESS/phpmyadmin/.
 
-### 📢 Kenapa Cara Ini Lebih Baik?
+📢 Kenapa Cara Ini Lebih Baik?
 - Tidak Bergantung pada Symlink: Nginx langsung mencari file di /usr/share/phpmyadmin.
 - Lebih Aman: Mengisolasi pengaturan phpMyAdmin dari folder web utama Anda (/var/www/html).
 - Mencegah Error 403: Karena kita mendefinisikan index index.php secara spesifik di dalam lokasi tersebut.
 
+4. Cara masuk ke phpmyadmin
+   Setelah konfigurasi Nginx selesai, Anda bisa masuk ke phpMyAdmin melalui browser. Namun, ada satu hal teknis yang perlu Anda ketahui: MySQL 8.0 ke atas tidak mengizinkan user root login ke phpMyAdmin secara default.
+   - Akses via Browser: Buka browser Anda (Chrome, Firefox, dll) dan ketikkan alamat IP server Anda diikuti dengan /phpmyadmin. Contoh: http://192.168.43.30/phpmyadmin/
+   - Buat User Admin Baru untuk phpMyAdmin
+   - Masuk ke MySQL terminal:
+
+     ```bash
+     sudo mysql
+     ```
+
+   - Buat user baru (Contoh nama: admin):
+     Ganti 'PasswordKuat123!' dengan password yang diinginkan.
+     
+     ```bash
+     CREATE USER 'admin'@'localhost' IDENTIFIED BY 'PasswordKuat123!';
+     ```
+
+   - Berikan hak akses penuh:
+     
+     ```bash
+     GRANT ALL PRIVILEGES ON *.* TO 'admin'@'localhost' WITH GRANT OPTION;
+     ```
+
+   - Refresh hak akses dan keluar:
+  
+     ```bash
+     FLUSH PRIVILEGES;
+     EXIT;
+     ```
+
+   - Masukkan Kredensial di Browser
+     Username: admin
+     Password: PasswordKuat123! (sesuai password yang di buat)
+
 ### 4. install python
 
 ```bash
-
+sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
 ```
 
 ### 5. install composer
