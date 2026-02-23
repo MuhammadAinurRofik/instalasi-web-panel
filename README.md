@@ -439,60 +439,60 @@ Buat file konfigurasi server agar domain/IP bisa mengarah ke folder Laravel ters
 
 1. Buat file konfigurasi baru
 
-```bash
-sudo nano /etc/nginx/sites-available/prodi.ac.id
-```
+   ```bash
+   sudo nano /etc/nginx/sites-available/prodi.ac.id
+   ```
 
 2. Tempelkan kode berikut (Sudah disesuaikan dengan timeout 1 jam)
 
-```bash
-server {
-    listen 80;
-    server_name prodi.ac.id www.prodi.ac.id;
-    root /var/www/web-panel/public;
-
-    index index.php index.html;
-
-    # Ukuran upload maksimal (sesuaikan dengan php.ini)
-    client_max_body_size 128M;
-
-    location / {
-        try_files $uri $uri/ /index.php?$query_string;
-    }
-
-    location ~ \.php$ {
-        include snippets/fastcgi-php.conf;
-        # Pastikan versi socket PHP-FPM benar (cek dengan: ls /var/run/php/)
-        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
-
-        # Timeout 1 jam (Sangat penting untuk proses unzip/deployment besar)
-        fastcgi_read_timeout 3600;
-        fastcgi_connect_timeout 3600;
-        fastcgi_send_timeout 3600;
-
-        # Pengaturan buffer tambahan
-        fastcgi_buffers 16 16k;
-        fastcgi_buffer_size 32k;
-    }
-
-    location ~ /\.ht {
-        deny all;
-    }
-}
-```
+   ```bash
+   server {
+       listen 80;
+       server_name prodi.ac.id www.prodi.ac.id;
+       root /var/www/web-panel/public;
+   
+       index index.php index.html;
+   
+       # Ukuran upload maksimal (sesuaikan dengan php.ini)
+       client_max_body_size 128M;
+   
+       location / {
+           try_files $uri $uri/ /index.php?$query_string;
+       }
+   
+       location ~ \.php$ {
+           include snippets/fastcgi-php.conf;
+           # Pastikan versi socket PHP-FPM benar (cek dengan: ls /var/run/php/)
+           fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+   
+           # Timeout 1 jam (Sangat penting untuk proses unzip/deployment besar)
+           fastcgi_read_timeout 3600;
+           fastcgi_connect_timeout 3600;
+           fastcgi_send_timeout 3600;
+   
+           # Pengaturan buffer tambahan
+           fastcgi_buffers 16 16k;
+           fastcgi_buffer_size 32k;
+       }
+   
+       location ~ /\.ht {
+           deny all;
+       }
+   }
+   ```
 
 3. Aktifkan Konfigurasi
 
-```bash
-# Link ke folder sites-enabled
-sudo ln -s /etc/nginx/sites-available/prodi.ac.id /etc/nginx/sites-enabled/
-
-# Tes apakah ada pengetikan yang salah
-sudo nginx -t
-
-# Restart Nginx jika OK
-sudo systemctl restart nginx
-```
+   ```bash
+   # Link ke folder sites-enabled
+   sudo ln -s /etc/nginx/sites-available/prodi.ac.id /etc/nginx/sites-enabled/
+   
+   # Tes apakah ada pengetikan yang salah
+   sudo nginx -t
+   
+   # Restart Nginx jika OK
+   sudo systemctl restart nginx
+   ```
 
 ### 16. Perbaikan Izin Folder Akhir
 Agar Laravel tidak error "Permission Denied" saat menulis log atau mengunggah file zip.
