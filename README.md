@@ -257,12 +257,12 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
    sudo systemctl restart nginx
    ```
 
-Sekarang coba akses melalui browser di http://IP_ADDRESS/phpmyadmin/.
-
-📢 Kenapa Cara Ini Lebih Baik?
-- Tidak Bergantung pada Symlink: Nginx langsung mencari file di /usr/share/phpmyadmin.
-- Lebih Aman: Mengisolasi pengaturan phpMyAdmin dari folder web utama Anda (/var/www/html).
-- Mencegah Error 403: Karena kita mendefinisikan index index.php secara spesifik di dalam lokasi tersebut.
+   Sekarang coba akses melalui browser di http://IP_ADDRESS/phpmyadmin/.
+   
+   📢 Kenapa Cara Ini Lebih Baik?
+   - Tidak Bergantung pada Symlink: Nginx langsung mencari file di /usr/share/phpmyadmin.
+   - Lebih Aman: Mengisolasi pengaturan phpMyAdmin dari folder web utama Anda (/var/www/html).
+   - Mencegah Error 403: Karena kita mendefinisikan index index.php secara spesifik di dalam lokasi tersebut.
 
 4. Cara masuk ke phpmyadmin
    Setelah konfigurasi Nginx selesai, Anda bisa masuk ke phpMyAdmin melalui browser. Namun, ada satu hal teknis yang perlu Anda ketahui: MySQL 8.0 ke atas tidak mengizinkan user root login ke phpMyAdmin secara default.
@@ -298,25 +298,51 @@ Sekarang coba akses melalui browser di http://IP_ADDRESS/phpmyadmin/.
      Username: admin
      Password: PasswordKuat123! (sesuai password yang di buat)
 
-### 4. install python
+### 6. install python
+- Tambahkan Repository Python
+
+  ```bash
+  sudo add-apt-repository ppa:deadsnakes/ppa -y
+  sudo apt update
+  ```
+
+- Instal Python 3.10 dan Kelengkapannya
+
+  ```bash
+  sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
+  ```
+
+### 7. install composer
+- Download Installer Composer
+  Unduh skrip instalasi resminya ke folder /tmp:
 
 ```bash
-sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
+curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
 ```
 
-### 5. install composer
+- Verifikasi dan Instalasi Global
+  Memproses instalasi dan memindahkan file eksekusinya ke /usr/local/bin/ agar bisa diakses dari folder mana saja.
 
 ```bash
-
+sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
 ```
 
-### 6. install unzip
+- Verifikasi Instalasi
+  Untuk memastikan Composer sudah terpasang dengan benar, jalankan perintah berikut:
+
+```bash
+composer --version
+```
+
+Pastikan versi php itu konsisten, karena saat menginstal Composer, sistem mendeteksi adanya paket php (metapackage) yang lebih baru di repositori PPA Ondřej Surý yang di tambahkan sebelumnya. Karena PPA tersebut sangat up-to-date, versi PHP 8.5 (yang kemungkinan masih versi development atau baru rilis) otomatis ikut terambil sebagai dependensi terbaru. jika menggunakan php versi 8.3, maka hapus php versi terbarunya. 
+
+### 8. install unzip
 
 ```bash
 sudo apt install unzip zip curl -y
 ```
 
-### 7. Konfigurasi Sudoers
+### 9. Konfigurasi Sudoers
 Agar PHP (www-data) bisa membuat folder di /var/www dan merestart Nginx via script.
 jalankan perintah:
 
@@ -328,6 +354,33 @@ Tambahkan di baris paling bawah:
 
 ```bash
 www-data ALL=(ALL) NOPASSWD: /usr/bin/mkdir, /usr/bin/cp, /usr/bin/unzip, /usr/bin/rm, /usr/bin/chown, /usr/bin/chmod, /usr/bin/mv, /usr/bin/ln, /usr/bin/systemctl, /usr/bin/php, /usr/bin/tail -n [0-9]* /var/log/nginx/*.log, /usr/bin/rm -f, /usr/bin/rm -rf /var/log/nginx/*, /usr/bin/rm -f /var/log/nginx/*, /usr/bin/python3.10, /usr/bin/pip, /usr/bin/touch, /usr/bin/tail, /usr/bin/bash, /usr/bin/systemctl reload nginx, /usr/bin/systemctl daemon-reload, /usr/bin/systemctl enable flask_*, /usr/bin/systemctl restart flask_*, /var/www/*/venv/bin/pip cache purge
+```
+
+### 10. Konfigurasi php.ini (Upload & Memory)
+Ubah batas upload agar file ZIP tidak ditolak oleh server.
+Edit: sudo nano /etc/php/8.x/fpm/php.ini (Sesuaikan 8.x dengan versi yang terinstall)
+Ubah:
+- upload_max_filesize = 1024M
+- post_max_size = 1024M
+- memory_limit = 1280M
+- max_execution_time = 3600
+
+### 11. Konfigurasi nginx.conf (Bucket Size)
+Menambah alokasi memori Nginx untuk menampung banyak subdomain user.
+Edit: sudo nano /etc/nginx/nginx.conf
+Cari di dalam blok http { ... } dan tambahkan/ubah:
+- client_max_body_size 1024M;
+- server_names_hash_bucket_size 128;
+
+### 12. Pengaturan Izin Folder (Permissions)
+Memberikan hak akses kepada sistem web untuk mengelola folder /var/www
+
+```bash
+sudo chown -R www-data:www-data /var/www
+```
+
+```bash
+sudo chmod -R 775 /var/www
 ```
 
 
