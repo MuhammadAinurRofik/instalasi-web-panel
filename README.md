@@ -494,7 +494,7 @@ sudo nginx -t
 sudo systemctl restart nginx
 ```
 
-###16. Perbaikan Izin Folder Akhir
+### 16. Perbaikan Izin Folder Akhir
 Agar Laravel tidak error "Permission Denied" saat menulis log atau mengunggah file zip.
 
 ```bash
