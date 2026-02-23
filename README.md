@@ -397,17 +397,111 @@ sudo git clone https://github.com/username/repo-web-panel.git web-panel
 sudo chown -R www-data:www-data /var/www/web-panel
 ```
 
+### 14. Setup Lingkungan Laravel (.env)
+Masuk ke direktori /var/www dan mengambil kode dari GitHub menggunakan git clone.
 
+```bash
+cd /var/www/web-panel
 
+# Edit file .env (Atur DB_DATABASE, DB_USERNAME, DB_PASSWORD sesuai server)
+sudo nano .env
 
+# Install dependencies via Composer
+sudo -u www-data composer install --no-dev
 
+# Mengunduh script instalasi NodeSource
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 
+# Instalasi Node.js dan NPM sekaligus
+sudo apt install -y nodejs
 
+# Verifikasi Instalasi
+node -v
+npm -v
 
+# Masuk ke folder proyek
+cd /var/www/web-panel
 
+# Install semua library yang ada di package.json
+sudo -u www-data npm install
 
+# Compile aset untuk produksi (Vite/Mix)
+sudo -u www-data npm run build
 
+# Generate key & Migration
+php artisan key:generate
+php artisan migrate --seed
+php artisan storage:link
+```
 
+### 15. Konfigurasi Nginx (prodi.ac.id) sesuaikan nama domainnya
+Buat file konfigurasi server agar domain/IP bisa mengarah ke folder Laravel tersebut.
+
+1. Buat file konfigurasi baru
+
+```bash
+sudo nano /etc/nginx/sites-available/prodi.ac.id
+```
+
+2. Tempelkan kode berikut (Sudah disesuaikan dengan timeout 1 jam)
+
+```bash
+server {
+    listen 80;
+    server_name prodi.ac.id www.prodi.ac.id;
+    root /var/www/web-panel/public;
+
+    index index.php index.html;
+
+    # Ukuran upload maksimal (sesuaikan dengan php.ini)
+    client_max_body_size 128M;
+
+    location / {
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        # Pastikan versi socket PHP-FPM benar (cek dengan: ls /var/run/php/)
+        fastcgi_pass unix:/var/run/php/php8.3-fpm.sock;
+
+        # Timeout 1 jam (Sangat penting untuk proses unzip/deployment besar)
+        fastcgi_read_timeout 3600;
+        fastcgi_connect_timeout 3600;
+        fastcgi_send_timeout 3600;
+
+        # Pengaturan buffer tambahan
+        fastcgi_buffers 16 16k;
+        fastcgi_buffer_size 32k;
+    }
+
+    location ~ /\.ht {
+        deny all;
+    }
+}
+```
+
+3. Aktifkan Konfigurasi
+
+```bash
+# Link ke folder sites-enabled
+sudo ln -s /etc/nginx/sites-available/prodi.ac.id /etc/nginx/sites-enabled/
+
+# Tes apakah ada pengetikan yang salah
+sudo nginx -t
+
+# Restart Nginx jika OK
+sudo systemctl restart nginx
+```
+
+###16. Perbaikan Izin Folder Akhir
+Agar Laravel tidak error "Permission Denied" saat menulis log atau mengunggah file zip.
+
+```bash
+sudo chown -R www-data:www-data /var/www/web-panel
+sudo chmod -R 775 /var/www/web-panel/storage
+sudo chmod -R 775 /var/www/web-panel/bootstrap/cache
+```
 
 
 
