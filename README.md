@@ -90,7 +90,7 @@ Berikut adalah langkah-langkah instalasinya:
 bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 
 ```bash
-https://www.youtube.com/watch?v=9z0pxkpWCJE&t=472s menit 2:47
+https://www.youtube.com/watch?v=9z0pxkpWCJE&t=472s menit 2:47 - 5:00
 ```
 
 ### 5. install phpmyadmin di nginx
