@@ -353,42 +353,42 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
      Password: PasswordKuat123! (sesuai password yang di buat)
 
 ### 6. install python
-- Tambahkan Repository Python
+1. Tambahkan Repository Python
 
-  ```bash
-  sudo add-apt-repository ppa:deadsnakes/ppa -y
-  sudo apt update
-  ```
+   ```bash
+   sudo add-apt-repository ppa:deadsnakes/ppa -y
+   sudo apt update
+   ```
 
-- Instal Python 3.10 dan Kelengkapannya
+2. Instal Python 3.10 dan Kelengkapannya
 
-  ```bash
-  sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
-  ```
+   ```bash
+   sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
+   ```
 
 ### 7. install composer
-- Download Installer Composer
-  Unduh skrip instalasi resminya ke folder /tmp:
+1. Download Installer Composer
+   Unduh skrip instalasi resminya ke folder /tmp:
 
-```bash
-curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
-```
+   ```bash
+   curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
+   ```
 
-- Verifikasi dan Instalasi Global
-  Memproses instalasi dan memindahkan file eksekusinya ke /usr/local/bin/ agar bisa diakses dari folder mana saja.
+2. Verifikasi dan Instalasi Global
+   Memproses instalasi dan memindahkan file eksekusinya ke /usr/local/bin/ agar bisa diakses dari folder mana saja.
 
-```bash
-sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
-```
+   ```bash
+   sudo php /tmp/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+   ```
 
-- Verifikasi Instalasi
-  Untuk memastikan Composer sudah terpasang dengan benar, jalankan perintah berikut:
+3. Verifikasi Instalasi
+   Untuk memastikan Composer sudah terpasang dengan benar, jalankan perintah berikut:
 
-```bash
-composer --version
-```
+   ```bash
+   composer --version
+   ```
 
-Pastikan versi php itu konsisten, karena saat menginstal Composer, sistem mendeteksi adanya paket php (metapackage) yang lebih baru di repositori PPA Ondřej Surý yang di tambahkan sebelumnya. Karena PPA tersebut sangat up-to-date, versi PHP 8.5 (yang kemungkinan masih versi development atau baru rilis) otomatis ikut terambil sebagai dependensi terbaru. jika menggunakan php versi 8.3, maka hapus php versi terbarunya. 
+   Pastikan versi php itu konsisten, karena saat menginstal Composer, sistem mendeteksi adanya paket php (metapackage) yang lebih baru di repositori PPA Ondřej Surý yang di tambahkan sebelumnya. Karena PPA tersebut sangat up-to-date, versi PHP 8.5 (yang kemungkinan masih versi development atau baru rilis) otomatis ikut terambil sebagai dependensi terbaru. jika menggunakan php versi 8.3, maka hapus php versi terbarunya. 
 
 ### 8. install unzip
 
