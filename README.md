@@ -100,6 +100,56 @@ bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 https://www.youtube.com/watch?v=vqvRWI15q9A&t=388s
 ```
 
+Setelah Menginstall Phpmyadmin, seharusnya akan terinstall juga versi php terbaru (seperti php 8.5), jika versi yang ingin di pakai adalah versi 8.3, maka kita harus menghapus versi 8.5 dan mensetting versi 8.3 menjadi default.
+
+1. cek ada berapa versi php didalam mesin/server
+
+   ```bash
+   # cek versi php
+   php -v
+   ```
+   
+   ```bash
+   # untuk melihat versi mana saja yang terdaftar di sistem dan mana yang sedang aktif.
+   sudo update-alternatives --display php
+   ```
+   
+   ```bash
+   # Untuk melihat semua paket PHP (termasuk modul dan FPM) yang terinstal di sistem.
+   dpkg -l | grep php | grep -E "cli|fpm"
+   ```
+   
+   ```bash
+   # cek file eksekusinya di folder /usr/bin/
+   ls /usr/bin/php*
+   ```
+
+   jika yang muncul adalah bukan versi yang ingin dipakai (versi 8.3), atau ada lebih dari 1 versi, maka hapus versi yang tidak ingin dipakai dan setting versi yang ingin dipakai menjadi default.
+
+2. Paksa Default PHP ke Versi 8.3
+   Gunakan fitur update-alternatives milik Ubuntu untuk memilih versi mana yang menjadi prioritas utama di terminal.
+
+   ```bash
+   sudo update-alternatives --set php /usr/bin/php8.3
+   sudo update-alternatives --set phar /usr/bin/phar8.3
+   sudo update-alternatives --set phar.phar /usr/bin/phar.phar8.3
+   ```
+
+   Setelah menjalankan perintah di atas, coba cek lagi:
+
+   ```bash
+   php -v (Seharusnya sekarang muncul 8.3).
+   ```
+
+3. Hapus PHP 8.5 (atau versi lain yang ingin dihapus)
+   
+   ```bash
+   sudo apt purge php8.5* -y
+   sudo apt autoremove -y
+   ```
+
+   Setelah berhasil menghapus, cek kembali apakah masih ada versi php selain 8.3, jika ada, maka hapus jika memang tidak diperlukan.
+
 ### 📢 jika ada error mengenai apache pada saat install phpmyadmin 
 Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebagai dependensinya, dan Apache mencoba berjalan di Port 80 yang saat ini sudah dikuasai oleh Nginx.
 1. Hentikan dan Hapus Apache
@@ -110,6 +160,8 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
    sudo apt purge apache2* -y
    sudo apt autoremove -y
    ```
+
+   📢 jika tidak ada error, maka lanjutkan ke tahap menambahkan blok khusus phpmyadmin
 
 2. Tambahkan Blok Khusus phpMyAdmin
    Buka konfigurasi Nginx:
