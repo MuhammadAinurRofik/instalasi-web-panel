@@ -419,12 +419,20 @@ Ubah:
 - memory_limit = 1280M
 - max_execution_time = 3600
 
+```bash
+systemctl restart php8.3-fpm
+```
+
 ### 11. Konfigurasi nginx.conf (Bucket Size)
 Menambah alokasi memori Nginx untuk menampung banyak subdomain user.
 Edit: sudo nano /etc/nginx/nginx.conf
 Cari di dalam blok http { ... } dan tambahkan/ubah:
 - client_max_body_size 1024M;
 - server_names_hash_bucket_size 128;
+
+```bash
+systemctl restart nginx
+```
 
 ### 12. Pengaturan Izin Folder (Permissions)
 Memberikan hak akses kepada sistem web untuk mengelola folder /var/www
