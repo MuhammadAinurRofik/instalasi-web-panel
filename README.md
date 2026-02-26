@@ -322,7 +322,6 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
 
 4. Cara masuk ke phpmyadmin
    Setelah konfigurasi Nginx selesai, Anda bisa masuk ke phpMyAdmin melalui browser. Namun, ada satu hal teknis yang perlu Anda ketahui: MySQL 8.0 ke atas tidak mengizinkan user root login ke phpMyAdmin secara default.
-   - Akses via Browser: Buka browser Anda (Chrome, Firefox, dll) dan ketikkan alamat IP server Anda diikuti dengan /phpmyadmin. Contoh: http://192.168.43.30/phpmyadmin/
    - Buat User Admin Baru untuk phpMyAdmin
    - Masuk ke MySQL terminal:
 
@@ -334,7 +333,7 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
      Ganti 'PasswordKuat123!' dengan password yang diinginkan.
      
      ```bash
-     CREATE USER 'admin'@'localhost' IDENTIFIED BY 'PasswordKuat123!';
+     CREATE USER 'admin'@'localhost' IDENTIFIED BY 'Admin123';
      ```
 
    - Berikan hak akses penuh:
@@ -350,9 +349,10 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
      EXIT;
      ```
 
+   - Akses via Browser: Buka browser Anda (Chrome, Firefox, dll) dan ketikkan alamat IP server Anda diikuti dengan /phpmyadmin. Contoh: http://192.168.43.30/phpmyadmin/
    - Masukkan Kredensial di Browser
      Username: admin
-     Password: PasswordKuat123! (sesuai password yang di buat)
+     Password: Admin123 (sesuai password yang di buat)
 
 ### 6. install python
 1. Tambahkan Repository Python
