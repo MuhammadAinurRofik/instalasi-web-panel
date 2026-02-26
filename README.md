@@ -465,6 +465,9 @@ Masuk ke direktori /var/www dan mengambil kode dari GitHub menggunakan git clone
 ```bash
 cd /var/www/web-panel
 
+# Salin file .env
+sudo cp .env.example .env
+
 # Edit file .env (Atur DB_DATABASE, DB_USERNAME, DB_PASSWORD sesuai server)
 sudo nano .env
 
