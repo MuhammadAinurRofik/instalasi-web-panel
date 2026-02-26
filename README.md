@@ -178,8 +178,38 @@ Ringkasan videonya:
 bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 
 ```bash
-https://www.youtube.com/watch?v=vqvRWI15q9A&t=388s
+https://www.youtube.com/watch?v=vqvRWI15q9A&t=388s menit 3:06 
 ```
+
+Ringkasan Video:
+1. jalankan perintah ini untuk install phpmyadmin, dan tunggu hinngga selesai
+   
+   ```bash
+   sudo apt install phpmyadmin -y
+   ```
+
+2. jika muncul "Configuring phpmyadmin" untuk memilih web server, jangan pilih apapun, langsung ok saja (Tab + enter), karna disini kita akan memakai nginx, dan di pilihan itu tidak ada nginx.
+3. jika muncul "Configuring phpmyadmin"
+
+   ```bash
+      The phpmyadmin package must have a database installed and configured   │
+    │ before it can be used. This can be optionally handled with             │
+    │ dbconfig-common.                                                       │
+    │                                                                        │
+    │ If you are an advanced database administrator and know that you want   │
+    │ to perform this configuration manually, or if your database has        │
+    │ already been installed and configured, you should refuse this option.  │
+    │ Details on what needs to be done should most likely be provided in     │
+    │ /usr/share/doc/phpmyadmin.                                             │
+    │                                                                        │
+    │ Otherwise, you should probably choose this option.                     │
+    │                                                                        │
+    │ Configure database for phpmyadmin with dbconfig-common?  
+   ```
+
+   pilih yes
+
+4. kemudian muncul "Configuring phpmyadmin" untuk membuat password phpmyadmin dan juga password confirmationnya
 
 Setelah Menginstall Phpmyadmin, seharusnya akan terinstall juga versi php terbaru (seperti php 8.5), jika versi yang ingin di pakai adalah versi 8.3, maka kita harus menghapus versi 8.5 dan mensetting versi 8.3 menjadi default.
 
