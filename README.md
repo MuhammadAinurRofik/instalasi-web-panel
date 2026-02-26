@@ -7,6 +7,8 @@
 - **Server:** Nginx
 - **OS:** Ubuntu 22.04 LTS
 
+## 📢 untuk domain disini sementara menggunakan prodi.ac.id karna belum memiliki domain pasti yang aktif, jadi jika domain yang di inginkan bukan prodi.ac.id, itu bisa diganti dengan nama domain lain.
+
 ## 📥 Panduan Instalasi di Server
 Ikuti langkah-langkah di bawah ini untuk menyiapkan lingkungan server.
 
@@ -568,11 +570,39 @@ sudo chmod -R 775 /var/www/web-panel/storage
 sudo chmod -R 775 /var/www/web-panel/bootstrap/cache
 ```
 
+### 17. Cara mengakses jika belum memiliki domain aktif
+Agar bisa membuka http://prodi.ac.id (dan bukan IP/prodi.ac.id), kita harus "menipu" laptop agar tahu bahwa domain tersebut ada di IP servermu.
 
+Jika Laptop menggunakan Windows:
+1. buka cmd/terminal dan jalankan sebagai administrator (Run as Administrator).
+2. jalankan perintah:
+   
+   ```bash
+   notepad C:\Windows\System32\drivers\etc\hosts
+   ```
+   
+3. Tambahkan baris ini di bagian paling bawah:
+   
+   ```bash
+   IP_SERVER    prodi.ac.id
+   ```
 
+4. Simpan. Sekarang buka browser dan ketik http://prodi.ac.id.
 
+Jika Laptop menggunakan Ubuntu:
+1. Buka terminal di laptop:
+   
+   ```bash
+   sudo nano /etc/hosts
+   ```
+   
+2. Tambahkan baris: 
 
+   ```bash
+   IP_SERVER    prodi.ac.id
+   ```
 
+   Simpan (Ctrl+O, Enter, Ctrl+X). Kemudian buka browser dan ketik http://prodi.ac.id.
 
 
 
