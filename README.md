@@ -92,9 +92,88 @@ Berikut adalah langkah-langkah instalasinya:
 bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 
 ```bash
-https://www.youtube.com/watch?v=9z0pxkpWCJE&t=472s menit 2:47 - 5:00
+https://www.youtube.com/watch?v=9z0pxkpWCJE&t=472s menit 2:47 - 4:46
 ```
 
+Ringkasan videonya:
+1. jalankan perintah ini, dan tunggu hingga selesai
+
+   ```bash
+   sudo apt install mysql-server -y
+   ```
+
+2. kemudian cek apakah mysql sudah aktif atau belum
+
+   ```bash
+   # cek status
+   sudo systemctl status mysql
+
+   # jika belum aktif jalankan ini
+   sudo systemctl start mysql
+   sudo systemctl enable mysql
+   ```
+
+3. kemudian jalankan perintah ini
+
+   ```bash
+   sudo /usr/bin/mysql_secure_installation
+
+   # ikuti tahapan ini sampai selesai
+   Securing the MySQL server deployment.
+
+   Connecting to MySQL using a blank password.
+   
+   VALIDATE PASSWORD COMPONENT can be used to test passwords
+   and improve security. It checks the strength of password
+   and allows the users to set only those passwords which are
+   secure enough. Would you like to setup VALIDATE PASSWORD component?
+   
+   Press y|Y for Yes, any other key for No: n
+   
+   Skipping password set for root as authentication with auth_socket is used by default.
+   If you would like to use password authentication instead, this can be done with the "ALTER_USER" command.
+   See https://dev.mysql.com/doc/refman/8.0/en/alter-user.html#alter-user-password-management for more information.
+   
+   By default, a MySQL installation has an anonymous user,
+   allowing anyone to log into MySQL without having to have
+   a user account created for them. This is intended only for
+   testing, and to make the installation go a bit smoother.
+   You should remove them before moving into a production
+   environment.
+   
+   Remove anonymous users? (Press y|Y for Yes, any other key for No) : y
+   Success.
+   
+   
+   Normally, root should only be allowed to connect from
+   'localhost'. This ensures that someone cannot guess at
+   the root password from the network.
+   
+   Disallow root login remotely? (Press y|Y for Yes, any other key for No) : y
+   Success.
+   
+   By default, MySQL comes with a database named 'test' that
+   anyone can access. This is also intended only for testing,
+   and should be removed before moving into a production
+   environment.
+   
+   
+   Remove test database and access to it? (Press y|Y for Yes, any other key for No) : y
+    - Dropping test database...
+   Success.
+   
+    - Removing privileges on test database...
+   Success.
+   
+   Reloading the privilege tables will ensure that all changes
+   made so far will take effect immediately.
+   
+   Reload privilege tables now? (Press y|Y for Yes, any other key for No) : y
+   Success.
+   
+   All done!
+   ```
+   
 ### 5. install phpmyadmin di nginx
 bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 
