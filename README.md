@@ -477,6 +477,14 @@ Error ini terjadi karena phpMyAdmin mencoba menginstal Apache secara paksa sebag
    sudo apt update && sudo apt install -y python3.10 python3.10-dev python3.10-venv python3-pip python3.10-distutils libmysqlclient-dev pkg-config
    ```
 
+3. Install Versi python tambahan untuk fitur multi version
+
+   ```bash
+   sudo apt install -y \
+   python3.11 python3.11-dev python3.11-venv \
+   python3.12 python3.12-dev python3.12-venv python3.12-full
+   ```
+
 ### 7. install composer
 1. Download Installer Composer
    Unduh skrip instalasi resminya ke folder /tmp:
@@ -712,16 +720,6 @@ Jika Laptop menggunakan Ubuntu:
    ```
 
    Simpan (Ctrl+O, Enter, Ctrl+X). Kemudian buka browser dan ketik http://prodi.ac.id.
-
-### 18. Install Versi python tambahan untuk multi version
-
-```bash
-sudo apt update
-sudo apt install -y \
-python3.9 python3.9-dev python3.9-venv python3.9-distutils \
-python3.12 python3.12-dev python3.12-venv python3.12-full \
-python3-pip
-```
 
 
 
