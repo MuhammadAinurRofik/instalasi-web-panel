@@ -713,8 +713,15 @@ Jika Laptop menggunakan Ubuntu:
 
    Simpan (Ctrl+O, Enter, Ctrl+X). Kemudian buka browser dan ketik http://prodi.ac.id.
 
+### 18. Install Versi python tambahan untuk multi version
 
-
+```bash
+sudo apt update
+sudo apt install -y \
+python3.9 python3.9-dev python3.9-venv python3.9-distutils \
+python3.12 python3.12-dev python3.12-venv python3.12-full \
+python3-pip
+```
 
 
 
