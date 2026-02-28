@@ -91,7 +91,8 @@ Berikut adalah langkah-langkah instalasinya:
 7. Install Versi php tambahan untuk fitur multi version
 
    ```bash
-   
+   sudo apt install -y php8.2-fpm php8.2-mysql php8.2-xml php8.2-mbstring php8.2-curl php8.2-zip php8.2-gd php8.2-bcmath \
+                     php8.4-fpm php8.4-mysql php8.4-xml php8.4-mbstring php8.4-curl php8.4-zip php8.4-gd php8.4-bcmath
    ```
 
 ### 4. install MYSQL
