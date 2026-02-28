@@ -88,6 +88,12 @@ Berikut adalah langkah-langkah instalasinya:
    
    Buka browser dan akses: http://localhost/info.php
 
+7. Install Versi php tambahan untuk fitur multi version
+
+   ```bash
+   
+   ```
+
 ### 4. install MYSQL
 bisa menggunakan tutorial di bawah ini ataupun tutorial dari video lainnya
 
