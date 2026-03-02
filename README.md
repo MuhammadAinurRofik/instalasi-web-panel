@@ -731,7 +731,43 @@ Jika Laptop menggunakan Ubuntu:
 
 
 # Cara membuat tunnel cloudflare
+1. Menambahkan Domain di Cloudflare
+Buka situs Cloudflare dan buat akun jika belum punya, lalu login.
 
+Di halaman utama (Dashboard), klik tombol Add a Site (Tambahkan Situs).
+
+Masukkan nama domain yang sudah kamu beli (contoh: domainmu.com). Pastikan tidak menggunakan http:// atau www. Klik Continue.
+
+Cloudflare akan meminta kamu memilih paket berlangganan. Gulir ke bagian paling bawah, pilih paket Free (Gratis), lalu klik Continue. Paket gratis ini sudah lebih dari cukup untuk kebutuhan hosting pribadi.
+
+2. Review DNS Records
+Cloudflare akan memindai (scan) pengaturan DNS yang ada di domainmu saat ini.
+
+Jika ada daftar panjang yang muncul, biarkan saja apa adanya untuk sekarang. Gulir ke bagian paling bawah dan klik Continue.
+
+Jika muncul peringatan "You don't have any DNS records", abaikan saja dan klik Confirm.
+
+3. Mengubah Nameserver (Di Penyedia Domain)
+Ini adalah langkah paling penting. Cloudflare akan memberikan dua buah Nameserver (NS) baru, yang biasanya berakhiran .ns.cloudflare.com (misalnya: abby.ns.cloudflare.com dan zane.ns.cloudflare.com).
+
+Buka tab peramban baru dan login ke situs tempat kamu membeli domain (misalnya: Niagahoster, Rumahweb, Namecheap, atau lainnya).
+
+Masuk ke menu pengelolaan domain (biasanya bernama Domain Management, DNS Management, atau Kelola Domain).
+
+Cari pengaturan Nameserver (NS).
+
+Kamu akan melihat nameserver bawaan dari penyedia domainmu (biasanya ada 2 hingga 4 baris). Hapus semuanya, lalu ganti dengan dua Nameserver yang diberikan oleh Cloudflare tadi.
+
+Simpan perubahan (Save / Update Nameservers).
+
+4. Konfirmasi dan Tunggu (Propagasi DNS)
+Kembali ke halaman Cloudflare, lalu klik tombol Done, check nameservers.
+
+Cloudflare akan menawarkan Quick Start Guide untuk keamanan dasar (kamu bisa mengklik Finish later atau mengikuti sarannya, seperti mengaktifkan Automatic HTTPS Rewrites).
+
+Proses pembaruan sistem alamat internet ini (disebut propagasi DNS) membutuhkan waktu. Terkadang hanya butuh 5-15 menit, tapi bisa juga memakan waktu hingga 24 jam.
+
+Cloudflare akan otomatis mengirimkan email pemberitahuan kepadamu jika domain sudah berhasil terhubung dan berstatus Active.
 
 
    
