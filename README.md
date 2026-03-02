@@ -731,43 +731,110 @@ Jika Laptop menggunakan Ubuntu:
 
 
 # Cara membuat tunnel cloudflare
+## setting domain di cloudflare
 1. Menambahkan Domain di Cloudflare
-Buka situs Cloudflare dan buat akun jika belum punya, lalu login.
-
-Di halaman utama (Dashboard), klik tombol Add a Site (Tambahkan Situs).
-
-Masukkan nama domain yang sudah kamu beli (contoh: domainmu.com). Pastikan tidak menggunakan http:// atau www. Klik Continue.
-
-Cloudflare akan meminta kamu memilih paket berlangganan. Gulir ke bagian paling bawah, pilih paket Free (Gratis), lalu klik Continue. Paket gratis ini sudah lebih dari cukup untuk kebutuhan hosting pribadi.
+   Buka situs Cloudflare dan buat akun jika belum punya, lalu login.
+   
+   Di halaman utama (Dashboard), klik tombol Add a Site (Tambahkan Situs).
+   
+   Masukkan nama domain yang sudah kamu beli (contoh: domainmu.com). Pastikan tidak menggunakan http:// atau www. Klik Continue.
+   
+   Cloudflare akan meminta kamu memilih paket berlangganan. Gulir ke bagian paling bawah, pilih paket Free (Gratis), lalu klik Continue. Paket gratis ini sudah lebih dari cukup untuk kebutuhan hosting pribadi.
 
 2. Review DNS Records
-Cloudflare akan memindai (scan) pengaturan DNS yang ada di domainmu saat ini.
-
-Jika ada daftar panjang yang muncul, biarkan saja apa adanya untuk sekarang. Gulir ke bagian paling bawah dan klik Continue.
-
-Jika muncul peringatan "You don't have any DNS records", abaikan saja dan klik Confirm.
+   Cloudflare akan memindai (scan) pengaturan DNS yang ada di domainmu saat ini.
+   
+   Jika ada daftar panjang yang muncul, biarkan saja apa adanya untuk sekarang. Gulir ke bagian paling bawah dan klik Continue.
+   
+   Jika muncul peringatan "You don't have any DNS records", abaikan saja dan klik Confirm.
 
 3. Mengubah Nameserver (Di Penyedia Domain)
-Ini adalah langkah paling penting. Cloudflare akan memberikan dua buah Nameserver (NS) baru, yang biasanya berakhiran .ns.cloudflare.com (misalnya: abby.ns.cloudflare.com dan zane.ns.cloudflare.com).
-
-Buka tab peramban baru dan login ke situs tempat kamu membeli domain (misalnya: Niagahoster, Rumahweb, Namecheap, atau lainnya).
-
-Masuk ke menu pengelolaan domain (biasanya bernama Domain Management, DNS Management, atau Kelola Domain).
-
-Cari pengaturan Nameserver (NS).
-
-Kamu akan melihat nameserver bawaan dari penyedia domainmu (biasanya ada 2 hingga 4 baris). Hapus semuanya, lalu ganti dengan dua Nameserver yang diberikan oleh Cloudflare tadi.
-
-Simpan perubahan (Save / Update Nameservers).
+   Ini adalah langkah paling penting. Cloudflare akan memberikan dua buah Nameserver (NS) baru, yang biasanya berakhiran .ns.cloudflare.com (misalnya: abby.ns.cloudflare.com dan zane.ns.cloudflare.com).
+   
+   Buka tab peramban baru dan login ke situs tempat kamu membeli domain (misalnya: Niagahoster, Rumahweb, Namecheap, atau lainnya).
+   
+   Masuk ke menu pengelolaan domain (biasanya bernama Domain Management, DNS Management, atau Kelola Domain).
+   
+   Cari pengaturan Nameserver (NS).
+   
+   Kamu akan melihat nameserver bawaan dari penyedia domainmu (biasanya ada 2 hingga 4 baris). Hapus semuanya, lalu ganti dengan dua Nameserver yang diberikan oleh Cloudflare tadi.
+   
+   Simpan perubahan (Save / Update Nameservers).
 
 4. Konfirmasi dan Tunggu (Propagasi DNS)
-Kembali ke halaman Cloudflare, lalu klik tombol Done, check nameservers.
-
-Cloudflare akan menawarkan Quick Start Guide untuk keamanan dasar (kamu bisa mengklik Finish later atau mengikuti sarannya, seperti mengaktifkan Automatic HTTPS Rewrites).
-
-Proses pembaruan sistem alamat internet ini (disebut propagasi DNS) membutuhkan waktu. Terkadang hanya butuh 5-15 menit, tapi bisa juga memakan waktu hingga 24 jam.
-
-Cloudflare akan otomatis mengirimkan email pemberitahuan kepadamu jika domain sudah berhasil terhubung dan berstatus Active.
-
-
+   Kembali ke halaman Cloudflare, lalu klik tombol Done, check nameservers.
    
+   Cloudflare akan menawarkan Quick Start Guide untuk keamanan dasar (kamu bisa mengklik Finish later atau mengikuti sarannya, seperti mengaktifkan Automatic HTTPS Rewrites).
+   
+   Proses pembaruan sistem alamat internet ini (disebut propagasi DNS) membutuhkan waktu. Terkadang hanya butuh 5-15 menit, tapi bisa juga memakan waktu hingga 24 jam.
+   
+   Cloudflare akan otomatis mengirimkan email pemberitahuan kepadamu jika domain sudah berhasil terhubung dan berstatus Active.
+
+## setting tunnel di cloudflare
+1. Membuat & Menginstal Cloudflare Tunnel
+   Setelah domain berstatus Active di Cloudflare, saatnya membuat terowongan penghubung ke laptopmu.
+   
+   Di dashboard Cloudflare utama, cari dan klik menu Zero Trust di bilah kiri.
+   
+   Di dalam dashboard Zero Trust, navigasi ke Networks > Tunnels.
+   
+   Klik tombol Create a tunnel.
+   
+   Pilih opsi Cloudflared dan klik Next.
+   
+   Beri nama tunnel kamu (misalnya: server-lenovo), lalu klik Save tunnel.
+   
+   Cloudflare akan menampilkan halaman Install and run connectors. Pilih tab Debian/Ubuntu dan arsitektur 64-bit.
+   
+   Salin (copy) perintah panjang yang muncul di kotak bawah, lalu paste (tempel) di terminal Linux kamu. Perintah ini akan mengunduh paket cloudflared, menginstalnya, dan langsung mengaitkannya sebagai service yang akan otomatis berjalan setiap kali laptop dinyalakan.
+   
+   Setelah terminal selesai memproses, cek dashboard Cloudflare. Jika koneksi berhasil, status konektor di bawah akan berubah menjadi Healthy. Klik Next.
+
+## menyambungkan tunnel dengan domain
+Mengatur Public Hostname (Routing)
+Di halaman dashboard Cloudflare Zero Trust, pastikan kamu masih berada di menu Networks > Tunnels.
+
+Klik nama tunnel yang barusan kamu buat, lalu klik Configure (atau klik ikon titik tiga di sebelah kanan, lalu pilih Configure).
+
+Di halaman konfigurasi tunnel, pilih tab Public Hostname yang ada di bagian atas.
+
+Klik tombol Add a public hostname.
+
+Sekarang, kamu akan melihat form untuk mengisi rute. Isilah seperti ini:
+
+Bagian Public Hostname (Alamat Publiknya):
+
+Subdomain: (Opsional) Kamu bisa mengisinya dengan nama proyekmu, misalnya web-panel. Jadi nanti alamatnya menjadi web-panel.domainmu.com. Jika kamu ingin orang mengaksesnya lewat domain utama tanpa awalan, kosongkan saja kotak ini.
+
+Domain: Pilih nama domain kamu yang sudah aktif dari menu dropdown.
+
+Path: Kosongkan saja.
+
+Bagian Service (Tujuan di Laptopmu):
+
+Type: Pilih HTTP. (Tenang saja, akses dari luar akan otomatis dienkripsi menjadi HTTPS secara aman oleh Cloudflare. Untuk jalur lokal di dalam laptopmu, cukup gunakan HTTP).
+
+URL: Ketik localhost:PORT. Ganti tulisan PORT dengan angka port tempat aplikasimu sedang berjalan saat ini.
+
+Sebagai contoh: Jika proyekmu dijalankan menggunakan php artisan serve bawaan Laravel, biasanya menggunakan localhost:8000. Jika menggunakan Flask biasanya localhost:5000. Namun, jika kamu sudah menyetelnya di Nginx, cukup gunakan localhost:80.
+
+Buka bagian Additional application settings > TLS, lalu pastikan No TLS Verify diaktifkan (opsional, tapi sering kali membantu mencegah error SSL jika aplikasi lokalmu tidak memiliki sertifikat SSL sendiri).
+
+Terakhir, klik tombol Save hostname.
+
+## membuat subdomain wildcard di tunnel cloudflare
+Kamu bisa mengatur agar semua subdomain apa pun bentuknya (misal: apapun.whypanel.site) langsung dilempar ke Nginx di localhost:80. Nanti Nginx yang bertugas mengecek, "Apakah ada file konfigurasi untuk subdomain ini?".
+
+Cara mengaturnya di Cloudflare Tunnel:
+
+Buka dashboard Cloudflare Zero Trust > Networks > Tunnels.
+
+Di tab Public Hostname, klik Add a public hostname.
+
+Di bagian Subdomain, cukup ketik tanda bintang: *
+
+Pilih domain whypanel.site.
+
+Arahkan ke Service: HTTP dan URL: localhost:80.
+
+Klik Save.
