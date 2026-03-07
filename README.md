@@ -621,8 +621,9 @@ sudo -u www-data npm run build
 
 # Generate key & Migration
 php artisan key:generate
-php artisan migrate --seed
+php artisan migrate
 php artisan storage:link
+php artisan db:seed --class=AdminSeeder
 ```
 
 ### 15. Konfigurasi Nginx (prodi.ac.id) sesuaikan nama domainnya
