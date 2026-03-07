@@ -578,7 +578,7 @@ Masuk ke direktori /var/www dan mengambil kode dari GitHub menggunakan git clone
 # Masuk ke folder web
 cd /var/www
 
-# Clone repository (Ganti URL dengan link repo Anda)
+# Clone repository
 sudo git clone https://github.com/MuhammadAinurRofik/web-panel
 
 # Berikan izin kepemilikan awal agar bisa diproses Laravel
@@ -727,8 +727,84 @@ Jika Laptop menggunakan Ubuntu:
    ```
 
    Simpan (Ctrl+O, Enter, Ctrl+X). Kemudian buka browser dan ketik http://prodi.ac.id.
+   
+# Cara Menggunakan akun Gmail biasa untuk mengirim email verifikasi 
+1. Masuk ke Akun Google
+Klik link ini langsung: https://myaccount.google.com/security
+Atau jika ingin manual:
+- Buka Google.com.
+- Klik Foto Profil Anda di pojok kanan atas.
+- Klik tombol Manage your Google Account (Kelola Akun Google Anda).
+- Baru di sana Anda akan melihat tab Security (Keamanan) di deretan menu sebelah kiri atau atas.
+- Kemudian aktifkan Verifikasi 2 langkah.
+2. Membuat App Password
+Jika Verifikasi 2 Langkah sudah aktif, sekarang tinggal membuat App Password (Kata Sandi Aplikasi) agar Laravel bisa mengirim email.
+- Buka halaman ini: https://myaccount.google.com/apppasswords.
+- Di kolom "App name", ketikkan nama bebas, misalnya: Whypanel SMTP.
+- Klik tombol Create (Buat).
+- Akan muncul jendela kecil yang menampilkan 16 karakter kode (biasanya di dalam kotak kuning).
+- Salin kode tersebut (abaikan spasi di antaranya).
+3. Buka file .env
+sesuaikan bagian berikut:
 
+```bash
+MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=email-anda@gmail.com (emailtest@gmail.com)
+MAIL_PASSWORD=kodesandienambelasdigit  # Masukkan 16 digit kode tanpa spasi 
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="no-reply@domain-anda" ("no-reply@whypanel.site")
+MAIL_FROM_NAME="Nama aplikasi/sistem" ("Whypanel Unesa")
+```
 
+Setelah mengubah file .env, jangan lupa jalankan perintah ini agar Laravel membaca konfigurasi terbaru:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+```
+
+# Mengganti email dan domain untuk email verifikasi (SMTP)
+Buka file .env dan sesuaikan bagian berikut:
+
+```bash
+MAIL_MAILER=smtp
+MAIL_SCHEME=null
+MAIL_HOST=smtp.gmail.com
+MAIL_PORT=465
+MAIL_USERNAME=muhammadainur40@gmail.com
+MAIL_PASSWORD=zacuekzmxittwztj
+MAIL_ENCRYPTION=ssl
+MAIL_FROM_ADDRESS="no-reply@whypanel.site"
+MAIL_FROM_NAME="Whypanel system"
+```
+
+ganti semua bagian ini yang ada di dalam file .env:
+
+```bash
+# 1. Update Akun Email Baru
+MAIL_USERNAME=email-baru-anda@gmail.com
+MAIL_PASSWORD=kode-app-password-16-digit-baru
+
+# 2. Update Domain Pengirim (Agar muncul sebagai @domain-baru.com)
+MAIL_FROM_ADDRESS="no-reply@domain-baru.com"
+MAIL_FROM_NAME="Nama Aplikasi Baru"
+
+# 3. Update URL Aplikasi (Sangat Penting untuk Verifikasi Email)
+APP_NAME=Nama Aplikasi Baru
+APP_URL=https://domain-baru.com
+```
+
+kemudian jalankan perintah ini
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan route:clear
+php artisan view:clear
+```
 
 # Cara membuat tunnel cloudflare
 ## Setting domain di cloudflare
