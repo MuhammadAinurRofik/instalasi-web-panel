@@ -731,7 +731,7 @@ Jika Laptop menggunakan Ubuntu:
 
 
 # Cara membuat tunnel cloudflare
-## setting domain di cloudflare
+## Setting domain di cloudflare
 1. Menambahkan Domain di Cloudflare
    - Buka situs Cloudflare dan buat akun jika belum punya, lalu login.
    - klik menu Domains yang ada di sidebar sebelah kiri.
@@ -768,7 +768,7 @@ Jika Laptop menggunakan Ubuntu:
    - Salin (copy) perintah panjang yang muncul di kotak bawah, lalu paste (tempel) di terminal Linux. Perintah ini akan mengunduh paket cloudflared, menginstalnya, dan langsung mengaitkannya sebagai service yang akan otomatis berjalan setiap kali laptop dinyalakan.
    - Setelah terminal selesai memproses, cek dashboard Cloudflare. Jika koneksi berhasil, status konektor di bawah akan berubah menjadi Healthy. Klik Next.
 
-## menyambungkan tunnel dengan domain
+## Menyambungkan tunnel dengan domain
 1. Mengatur Public Hostname (Routing)
    - Di halaman dashboard Cloudflare Zero Trust, pastikan kamu masih berada di menu Networks > Connectors.
    - Klik nama tunnel yang barusan kamu buat, lalu klik Configure (atau klik ikon titik tiga di sebelah kanan, lalu pilih Configure).
@@ -783,7 +783,7 @@ Jika Laptop menggunakan Ubuntu:
    - URL: Ketik localhost:PORT. Ganti tulisan PORT dengan angka port tempat aplikasimu sedang berjalan saat ini. Sebagai contoh: Jika proyekmu dijalankan menggunakan php artisan serve bawaan Laravel, biasanya menggunakan localhost:8000. Jika menggunakan Flask biasanya localhost:5000. Namun, jika kamu sudah menyetelnya di Nginx, cukup gunakan localhost:80.
    - Terakhir, klik tombol Save hostname.
 
-## membuat subdomain wildcard di tunnel cloudflare
+## Membuat subdomain wildcard di tunnel cloudflare
 Kamu bisa mengatur agar semua subdomain apa pun bentuknya (misal: apapun.whypanel.site) langsung dilempar ke Nginx di localhost:80. Nanti Nginx yang bertugas mengecek, "Apakah ada file konfigurasi untuk subdomain ini?".
 Cara mengaturnya di Cloudflare Tunnel:
 - Buka dashboard Cloudflare Zero Trust > Networks > Tunnels.
