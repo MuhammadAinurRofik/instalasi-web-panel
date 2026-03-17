@@ -650,7 +650,7 @@ Buat file konfigurasi server agar domain/IP bisa mengarah ke folder Laravel ters
        real_ip_header CF-Connecting-IP;
    
        # Ukuran upload maksimal (sesuaikan dengan php.ini)
-       client_max_body_size 128M;
+       client_max_body_size 1024M;
    
        location / {
            try_files $uri $uri/ /index.php?$query_string;
