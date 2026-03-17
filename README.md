@@ -645,6 +645,10 @@ Buat file konfigurasi server agar domain/IP bisa mengarah ke folder Laravel ters
    
        index index.php index.html;
    
+       # Set IP asli dari header Cloudflare
+       set_real_ip_from 127.0.0.1;
+       real_ip_header CF-Connecting-IP;
+   
        # Ukuran upload maksimal (sesuaikan dengan php.ini)
        client_max_body_size 128M;
    
@@ -665,6 +669,11 @@ Buat file konfigurasi server agar domain/IP bisa mengarah ke folder Laravel ters
            # Pengaturan buffer tambahan
            fastcgi_buffers 16 16k;
            fastcgi_buffer_size 32k;
+
+           # Tambahkan proxy timeout jika Anda menggunakan proxy_pass
+           proxy_read_timeout 3600;
+           proxy_connect_timeout 3600;
+           proxy_send_timeout 3600;
        }
    
        location ~ /\.ht {
