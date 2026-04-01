@@ -581,6 +581,9 @@ cd /var/www
 # Clone repository
 sudo git clone https://github.com/MuhammadAinurRofik/web-panel
 
+# unzip file
+unzip web-panel.zip
+
 # Berikan izin kepemilikan awal agar bisa diproses Laravel
 sudo chown -R www-data:www-data /var/www/web-panel
 ```
