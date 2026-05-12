@@ -741,6 +741,66 @@ Jika Laptop menggunakan Ubuntu:
 
    Simpan (Ctrl+O, Enter, Ctrl+X). Kemudian buka browser dan ketik http://prodi.ac.id.
    
+# Fitur verifikasi email register dengan API email di resend.com
+## Fase 1: Pendaftaran & Konfigurasi Domain di Resend
+1. Buat Akun Resend
+- Kunjungi website resmi resend.com.
+- Klik tombol "Get Started" di pojok kanan atas.
+- Sangat disarankan untuk langsung mendaftar menggunakan akun GitHub atau akun Google agar lebih cepat.
+2. Tambahkan Domain Whypanel
+- Setelah masuk ke dashboard, lihat menu di sebelah kiri dan klik "Domains".
+- Klik tombol "Add Domain".
+- Masukkan domain utama VPS-mu: whypanel.site (tanpa https atau www), lalu pilih region (disarankan us-east-1 yang merupakan default). Klik Add.
+3. Verifikasi DNS (Sangat Penting!)
+- Setelah domain ditambahkan, Resend akan menampilkan daftar DNS Records (biasanya berupa TXT dan MX records). Ini berfungsi sebagai bukti bahwa kamu adalah pemilik sah domain tersebut agar emailmu tidak masuk ke folder Spam.
+- Buka panel manajemen DNS milikmu (seperti di Cloudflare tempat kamu biasa mengarahkan DNS domain-domainmu).
+- Tambahkan satu per satu record TXT dan MX yang diminta oleh Resend tersebut ke pengaturan DNS whypanel.site.
+- Kembali ke Resend, lalu klik "Verify DNS". Tunggu beberapa saat hingga statusnya berubah menjadi centang hijau "Verified".
+4. Dapatkan API Key
+- Di menu kiri Resend, klik "API Keys".
+- Klik "Create API Key".
+- Beri nama bebas (misalnya: Whypanel Production), pilih Permission "Sending access", dan pilih domain whypanel.site.
+- Salin (Copy) kode API Key yang muncul (biasanya berawalan re_...). Simpan baik-baik, karena kode ini hanya akan ditampilkan sekali!
+## Fase 2: Integrasi ke Server Whypanel (Laravel)
+Sekarang kita berpindah ke terminal VPS-mu (atau melalui fitur Web Terminal di panelmu).
+1. Install Package Resend untuk Laravel
+Jalankan perintah Composer berikut di dalam direktori root proyek Whypanel-mu:
+
+```bash
+cd web-panel
+composer require resend/resend-laravel
+composer dump-autoload
+```
+
+2. Perbarui File Konfigurasi .env
+Buka file .env kamu, lalu sesuaikan bagian email menjadi seperti ini:
+
+```bash
+# Matikan koneksi SMTP yang lama
+# MAIL_MAILER=smtp
+# MAIL_HOST=smtp.gmail.com
+# MAIL_PORT=465
+
+# Aktifkan driver Resend
+MAIL_MAILER=resend
+RESEND_API_KEY="re_KODERAHASIADARIRESEND123456789"
+
+# Pastikan alamat pengirim MENGGUNAKAN DOMAIN YANG SUDAH DIVERIFIKASI
+MAIL_FROM_ADDRESS="no-reply@whypanel.site"
+MAIL_FROM_NAME="Whypanel Deployment"
+```
+
+3. Bersihkan Cache Sistem
+Agar Laravel membaca package dan konfigurasi .env yang baru, jalankan perintah wajib ini:
+
+```bash
+php artisan config:clear
+php artisan cache:clear
+php artisan optimize:clear
+```
+
+Sekarang, buka browser dan cobalah melakukan proses Register akun baru. Jika kamu membuka menu "Emails" di dashboard Resend, kamu juga bisa melihat status email tersebut apakah sudah berstatus Delivered atau bahkan Opened.
+
 # Cara Menggunakan akun Gmail biasa untuk mengirim email verifikasi 
 1. Masuk ke Akun Google
 Klik link ini langsung: https://myaccount.google.com/security
