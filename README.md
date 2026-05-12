@@ -799,7 +799,7 @@ php artisan cache:clear
 php artisan optimize:clear
 ```
 
-Sekarang, buka browser dan cobalah melakukan proses Register akun baru. Jika kamu membuka menu "Emails" di dashboard Resend, kamu juga bisa melihat status email tersebut apakah sudah berstatus Delivered atau bahkan Opened.
+Sekarang, buka browser dan cobalah melakukan proses Register akun baru. Jika kamu membuka menu "Emails" di dashboard Resend, kamu juga bisa melihat status email tersebut apakah sudah berstatus Delivered.
 
 # Cara Menggunakan akun Gmail biasa untuk mengirim email verifikasi 
 1. Masuk ke Akun Google
